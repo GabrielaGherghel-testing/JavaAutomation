@@ -25,13 +25,13 @@ public class ConvertMinInSec {
   @Test
   public void testConvert() {
     // Folosim setter pentru a seta valoarea de minute
-    setMinutes(8);
+    setMinutes(1);
 
     // Apelăm metoda pentru a face conversia și a afișa rezultatul
     calcConvert();
 
     // Verificăm rezultatul cu o aserțiune
-    int expectedSeconds = 8 * 60;
+    int expectedSeconds = 1 * 60;
     Assert.assertEquals(minutes * 60, expectedSeconds);
 
     // Tipărim și valoarea calculată a secundei pentru confirmare

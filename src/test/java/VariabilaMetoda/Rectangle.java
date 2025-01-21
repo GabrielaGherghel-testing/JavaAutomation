@@ -5,39 +5,123 @@ import org.testng.annotations.Test;
 
 public class Rectangle {
 
-    // Metoda pentru calcularea perimetrului dreptunghiului
+    // Method to calculate the perimeter of a rectangle
     public int calculateRectanglePerimeter(int customWidth, int customLength) {
-        int perimeter = 2 * (customWidth + customLength); // Formula perimetrului
-        return perimeter;  // Returnează perimetrul calculat
+        // Validate dimensions (width and length must be positive)
+        if (customWidth <= 0 || customLength <= 0) {
+            throw new IllegalArgumentException("Width and length must be positive integers.");
+        }
+
+        // Validate that length is greater than width
+        if (customLength <= customWidth) {
+            throw new IllegalArgumentException("Length must be greater than width for a valid rectangle.");
+        }
+
+        // Calculate perimeter
+        int perimeter = 2 * (customWidth + customLength);
+        return perimeter;
     }
 
-    // Metoda pentru a tipări perimetrul
+    // Method to print the perimeter
     public void printPerimeter(int customWidth, int customLength) {
-        // Calculăm perimetrul
+        // Calculate perimeter
         int perimeter = calculateRectanglePerimeter(customWidth, customLength);
 
-        // Tipărim perimetrul
+        // Print the perimeter
         System.out.println("The perimeter of the rectangle with width " + customWidth + " and length " + customLength + " is: " + perimeter);
     }
 
-    // Testul care validează calculul perimetrului
+    // Test method for invalid dimensions (negative, zero, width > length)
     @Test
-    public void testPerimeterCalculator() {
-        // Verificăm dacă metoda de calcul funcționează corect
-        Assert.assertEquals(calculateRectanglePerimeter(8, 4), 24);  // Test pentru un dreptunghi cu lățimea 8 și lungimea 4
-        Assert.assertEquals(calculateRectanglePerimeter(3, 4), 14);  // Test pentru un dreptunghi cu lățimea 3 și lungimea 4
+    public void testInvalidDimensions() {
+        try {
+            // Test for negative values
+            System.out.println("Testing with width -5 and length 4");
+            calculateRectanglePerimeter(-5, 4);  // Should throw exception
+        } catch (IllegalArgumentException e) {
+            System.out.println("Caught exception: " + e.getMessage());
+        }
+
+        try {
+            System.out.println("Testing with width 5 and length -4");
+            calculateRectanglePerimeter(5, -4);  // Should throw exception
+        } catch (IllegalArgumentException e) {
+            System.out.println("Caught exception: " + e.getMessage());
+        }
+
+        try {
+            System.out.println("Testing with width -5 and length -4");
+            calculateRectanglePerimeter(-5, -4); // Should throw exception
+        } catch (IllegalArgumentException e) {
+            System.out.println("Caught exception: " + e.getMessage());
+        }
+
+        // Test for zero values
+        try {
+            System.out.println("Testing with width 0 and length 4");
+            calculateRectanglePerimeter(0, 4);  // Should throw exception
+        } catch (IllegalArgumentException e) {
+            System.out.println("Caught exception: " + e.getMessage());
+        }
+
+        try {
+            System.out.println("Testing with width 5 and length 0");
+            calculateRectanglePerimeter(5, 0);  // Should throw exception
+        } catch (IllegalArgumentException e) {
+            System.out.println("Caught exception: " + e.getMessage());
+        }
+
+        // Test for width greater than length
+        try {
+            System.out.println("Testing with width 8 and length 4");
+            calculateRectanglePerimeter(8, 4);  // Should throw exception
+        } catch (IllegalArgumentException e) {
+            System.out.println("Caught exception: " + e.getMessage());
+        }
+
+        try {
+            System.out.println("Testing with width 10 and length 5");
+            calculateRectanglePerimeter(10, 5); // Should throw exception
+        } catch (IllegalArgumentException e) {
+            System.out.println("Caught exception: " + e.getMessage());
+        }
+
+        // Test for width equal to length
+        try {
+            System.out.println("Testing with width 5 and length 5");
+            calculateRectanglePerimeter(5, 5);  // Should throw exception
+        } catch (IllegalArgumentException e) {
+            System.out.println("Caught exception: " + e.getMessage());
+        }
+
+        // Test for non-integer values (e.g., floats/doubles)
+        try {
+            System.out.println("Testing with width 5.5 and length 7");
+            calculateRectanglePerimeter((int) 5.5, 7);  // Should throw exception
+        } catch (IllegalArgumentException e) {
+            System.out.println("Caught exception: " + e.getMessage());
+        }
+
+        try {
+            System.out.println("Testing with width 5 and length 7.5");
+            calculateRectanglePerimeter(5, (int) 7.5);  // Should throw exception
+        } catch (IllegalArgumentException e) {
+            System.out.println("Caught exception: " + e.getMessage());
+        }
     }
 
-    @Test
-    // Metoda principală pentru testare și afișare
+    // Main method to demonstrate the functionality
     public static void main(String[] args) {
-        // Creăm un obiect Rectangle
+        // Create a Rectangle object
         Rectangle calc = new Rectangle();
 
-        // Testăm și tipărim perimetrul pentru un dreptunghi cu lățimea 8 și lungimea 4
-        calc.printPerimeter(8, 4);
+        // Test and print perimeter for a valid rectangle with width 8 and length 10
+        calc.printPerimeter(8, 10);
 
-        // Testăm și tipărim perimetrul pentru un dreptunghi cu lățimea 3 și lungimea 4
-        calc.printPerimeter(3, 4);
+        // Test and print perimeter for a valid rectangle with width 3 and length 5
+        calc.printPerimeter(3, 5);
+
+        // Test and print perimeter for a valid rectangle with width 5 and length 7
+        calc.printPerimeter(5, 7);
     }
 }
